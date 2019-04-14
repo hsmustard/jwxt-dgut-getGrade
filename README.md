@@ -1,2 +1,3 @@
-# jwxt-dgut-getGrade
-基于Guzzle的模拟登录教务网查询成绩支持微信验证
+## 模拟登录教务网查成绩
+### 使用说明
+访问 static/web/index.html
