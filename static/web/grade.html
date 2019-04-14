@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="../bootstrap.min.css">
+        <title>成绩查询</title>
+        <style>
+        body{
+            padding: 10px;
+            /*background:url(__STATIC__/ExamGrade/bg1.jpg) repeat;*/
+            background-color:  #18B3EB;
+            margin: 0;
+	        padding: 0;
+	        color:white;
+        }
+        #headimg{
+            width: 50%;
+            margin: 5px;
+            max-width: 200px;
+        }
+
+            h2{
+                text-align: center;
+                margin-top: 5px;
+            }
+            #info{
+                margin-left:10px;
+                text-align: left;
+                
+            }
+            .cj{
+                margin: auto;
+                word-break:break-all; word-wrap:break-all;//自动换行
+                
+            }
+            .result{
+                margin: 5px;
+            }
+            .footer{
+                margin-top:30px;
+                text-align: center;
+                color:#8b8b8b;
+            }
+            .footer p {
+                text-align: center;
+                /*position: absolute;*/
+                text-size:8px;
+                line-height: 18px;
+                left:0;right:0;
+                bottom:20px;
+                margin:auto;
+                padding-bottom: 20px;
+            }
+            .GradeHead{
+            }
+            .subject{
+                width: 45%;
+            }
+            .cj-panel{
+                width: 98%;
+                color: black;
+            }
+            .term{
+                text-align: center;
+                padding: 2px;
+            }
+            .badge-myblue{
+                background-color:  #18B3EB;
+            }
+            .cjd{
+                height: 30px;
+                margin: 20px;
+            }
+            .classRank{
+                float: left;
+            }
+            .majorRank{
+                float: right;
+            }
+            .rank{
+                padding-bottom:20px;
+                text-align: center;
+            }
+            .rankVal{
+                padding-top: 8px;
+                text-align: center;
+                font-size: 30px;
+            }
+        </style>
+    </head>
+<body>
+    <div id="app">
+        <div align="center">
+            <!--<img id="headimg" src="__STATIC__/ExamGrade/dgut.png"/>-->
+            <img id="headimg" class="center-block" src="../dgut.png"/>
+        </div>
+        <!--<div class="cjd center-block">-->
+        <!--    <img class="cjd center-block" src="./cjd.png" alt="成绩单" />-->
+        <!--</div>-->
+        <div class="container-fluid">
+            <div class="row rankVal">
+                <div class="col-xs-6 classRankVal">{{info.pjjd}}</div>
+                <div class="col-xs-6 majorRankVal">{{info.pjcj}}</div>
+            </div>
+            <div class="row rank">
+                <div class="col-xs-6 classRank">平均绩点</div>
+                <div class="col-xs-6 majorRank">平均成绩</div>
+            </div>
+        </div>
+        <div class="result">
+            <div class="panel panel-default cj-panel center-block">
+                <div class="panel-body">
+                    <div class="term center-block">
+                        <h5>2018-2019第一学期</h5>
+                        <p class="badge badge-myblue">{{info.time}}</p>
+                    </div>
+                    <div id="info" class="center-block">
+                        <p >
+                            <!--学号：{$info['casid']}<br>-->
+                            姓名：{{info.name}}<br>
+                            班级：{{info.class}}
+                        </p>
+                    </div>
+                    <table class="table cj table-hover">
+                        <tr class="GradeHead">
+                            <th>科目</th>
+                            <th>学分</th>
+                            <th>类别</th>
+                            <th>成绩</th>
+                        </tr>
+                        
+                        <tr v-for="item in list">
+                            <td>{{item.km}}</td>
+                            <td>{{item.xf}}</td>
+                            <td>{{item.lb}}</td>
+                            <td>{{item.cj}}</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--<p id="info">GPA：5.0</p>-->
+        
+        <div class="footer">
+            <small>
+            <p>&copy;2019 莞工青年 青年全媒体中心
+            <br>成绩仅供参考，以教务系统数据为准</p></small>
+        </div>
+</div><!--  app -->
+    <script src="../vue.js"></script>
+    <script src="../axios.min.js"></script>
+</body>
+<script type="text/javascript">
+    var vm2 = new Vue({
+        el:'#app',
+        data:{
+            list:'',
+            info:''
+        },
+        created:function(){
+            axios.get('../../index.php/index/jwxt/getgradejson')
+              .then(function (response) {
+                console.log(response.data);
+                if(response.data.code == 200){
+                    vm2.list = response.data.data.data;
+                    vm2.info = response.data.data.info;
+                }
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+        }
+    });
+</script>
+
+</html>

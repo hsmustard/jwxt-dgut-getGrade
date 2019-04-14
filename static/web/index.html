@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>登录</title>
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="App Loction Form,Login Forms,Sign up Forms,Registration Forms,News latter Forms,Elements"./>
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+</script>
+    <script src="../vue.js"></script>
+    <script src="../axios.min.js"></script>
+</head>
+<body>
+		<div class="app-location" id="app">
+			<h2>Login</h2>
+			<div class="line"><span></span></div>
+			<form @submit.prevent="onSubmit">
+				<input type="text" class="text" v-model="username" placeholder="username">
+				<input type="password" v-model="password" placeholder="password">
+				<div v-show="showwechat_verify">
+					 <input type="text" name="wechat_verify" id="wechat_verify" v-model="wechat_verify" placeholder="微信验证码">
+				</div>
+				
+				 <input type="text" name="token" id="token" :value="token" hidden>
+				<div class="submit"><button @click="login">Login</button></div>
+				<div class="clear"></div>
+			</form>
+		</div>
+   		<div class="copy-right">
+				<p>Copyright &copy; 2019.Mustard All rights reserved.</p>
+		</div>
+</body>
+<script type="text/javascript">
+    var vm1 = new Vue({
+        el:'#app',
+        data:{
+            username:'',
+            password:'',
+            token:'',
+            wechat_verify:'',
+            showwechat_verify:false
+        },
+        created:function(){
+        	axios.get('../../index.php/index/index/getToken')
+			  .then(function (response) {
+			    console.log(response.data);
+			    if(response.data.code == 200){
+			    	vm1.token = response.data.data;
+			    }
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  });
+        },
+        methods:{
+        	login:function(){
+        		axios.post('../../index.php/index/index/getlogin', {
+			    username: vm1.username,
+			    password: vm1.password,
+			    __token__: vm1.token,
+			    wechat_verify: vm1.wechat_verify,
+			  })
+			  .then(function (response) {
+			    console.log(response);
+			    if(response.data.code == 23){
+			    	vm1.showwechat_verify = true;
+			    }else if(response.data.code == 302){
+			    	window.location.href = response.data.data.href;
+			    }
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  });
+			  return fales;
+        	},
+        	onSubmit:function(){
+        		return false;
+        	}
+        }
+    });
+
+</script>
+</html>
