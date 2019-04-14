@@ -6,10 +6,6 @@
 - 对手机用户友好
 - 支持有效平均成绩以及平均绩点
 <!--more-->
-# 截图
-![可正常登录][2]
-![支持微信验证码][3]
-![成绩页面][4]
 
 # 为什么不提供可以用的demo
 ** 页面预览 **
@@ -19,6 +15,3 @@ https://hsmustard.github.io/jwxt-dgut-getGrade/static/web/index.html(仅能预�
 
 
   [1]: https://hsmustard.github.io/jwxt-dgut-getGrade/jwxt.zip
-  [2]: https://hsmus.top/usr/uploads/2019/04/3879226254.png
-  [3]: https://hsmus.top/usr/uploads/2019/04/843637241.png
-  [4]: https://hsmus.top/usr/uploads/2019/04/3003834706.jpg
