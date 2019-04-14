@@ -9,7 +9,8 @@
 
 # 为什么不提供可以用的demo
 ** 页面预览 **
-https://hsmustard.github.io/jwxt-dgut-getGrade/static/web/index.html(仅能预览)
+https://hsmustard.github.io/jwxt-dgut-getGrade/static/web/index.html
+(仅能预览)
 
 因为 这是模拟登录，服务器登录太多人，怕被封ip
 
